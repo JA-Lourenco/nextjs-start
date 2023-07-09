@@ -31,9 +31,11 @@ export function Header() {
             </h1>
           </Link>
 
-          <Link href="/dashboard" className={styles.link}>
-            My Panel
-          </Link>
+          {session?.user && (
+            <Link href="/dashboard" className={styles.link}>
+              My Panel
+            </Link>
+          )}
         </nav>
 
         {showButton()}
