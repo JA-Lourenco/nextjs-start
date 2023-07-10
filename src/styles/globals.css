@@ -4,6 +4,7 @@
   --black: #0f0f0f;
   --white: #fff;
   --red: #ea3140;
+  --blue: #3183ff;
 }
 
 * {
@@ -14,4 +15,8 @@
 
 html {
   font-family: "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
 }

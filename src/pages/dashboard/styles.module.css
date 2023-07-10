@@ -1,2 +1,60 @@
 .container {
+  width: 100%;
+}
+
+.content {
+  width: 100%;
+
+  background-color: var(--black);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contentForm {
+  width: 100%;
+  max-width: 1024px;
+
+  margin-top: 58px;
+  padding: 0 18px 28px;
+}
+
+.title {
+  margin-bottom: 8px;
+
+  color: var(--white);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+
+  margin: 14px 0;
+}
+
+.checkboxArea label {
+  margin-left: 8px;
+
+  color: var(--white);
+}
+
+.checkboxArea {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  width: 100%;
+
+  padding: 12px 0;
+
+  font-size: 18px;
+  color: var(--white);
+
+  background-color: var(--blue);
+
+  border: 0;
+  border-radius: 5px;
 }

@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import { Textarea } from "@/components/Textarea";
+
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
@@ -12,7 +14,30 @@ export default function Dashboard() {
         <title>My Tasks Panel</title>
       </Head>
 
-      <h1>My Panel</h1>
+      <main className={styles.main}>
+        <section className={styles.content}>
+          <div className={styles.contentForm}>
+            <h1 className={styles.title}>What's your task?</h1>
+
+            <form>
+              <Textarea placeholder="Write about your task..." />
+
+              <div className={styles.checkboxArea}>
+                <input
+                  id="markPublic"
+                  type="checkbox"
+                  className={styles.checkbox}
+                />
+                <label htmlFor="markPublic">Mark as public</label>
+              </div>
+
+              <button type="submit" className={styles.button}>
+                Register
+              </button>
+            </form>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
