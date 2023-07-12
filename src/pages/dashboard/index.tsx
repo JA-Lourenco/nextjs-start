@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 
 import Head from "next/head";
+import Link from "next/link";
 
 import { Textarea } from "@/components/Textarea";
 
@@ -17,6 +18,8 @@ import {
   orderBy,
   where,
   onSnapshot,
+  doc,
+  deleteDoc,
 } from "firebase/firestore";
 
 import styles from "./styles.module.css";
@@ -39,6 +42,30 @@ export default function Dashboard({ user }: DashboardProps) {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [input, setInput] = useState("");
   const [publicTask, setPublicTask] = useState(false);
+
+  async function loadTasks() {
+    const tasks = collection(db, "task");
+    const qry = query(
+      tasks,
+      orderBy("created", "desc"),
+      where("user", "==", user?.email)
+    );
+
+    onSnapshot(qry, (snapshot) => {
+      let tasksData = [] as TaskProps[];
+      snapshot.forEach((doc) => {
+        tasksData.push({
+          id: doc.id,
+          task: doc.data().task,
+          created: doc.data().created,
+          user: doc.data().user,
+          public: doc.data().public,
+        });
+      });
+
+      setTasks(tasksData);
+    });
+  }
 
   function handleChangePublic(e: ChangeEvent<HTMLInputElement>) {
     setPublicTask(e.target.checked);
@@ -67,28 +94,18 @@ export default function Dashboard({ user }: DashboardProps) {
     }
   }
 
-  async function loadTasks() {
-    const tasks = collection(db, "task");
-    const qry = query(
-      tasks,
-      orderBy("created", "desc"),
-      where("user", "==", user?.email)
+  async function handleDeleteTask(id: string) {
+    const docRef = doc(db, "task", id);
+
+    await deleteDoc(docRef);
+  }
+
+  async function handleShare(id: string) {
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_URL}/task/${id}`
     );
 
-    onSnapshot(qry, (snapshot) => {
-      let tasksData = [] as TaskProps[];
-      snapshot.forEach((doc) => {
-        tasksData.push({
-          id: doc.id,
-          task: doc.data().task,
-          created: doc.data().created,
-          user: doc.data().user,
-          public: doc.data().public,
-        });
-      });
-
-      setTasks(tasksData);
-    });
+    alert("Copied to clipboard!");
   }
 
   function showTasks() {
@@ -98,17 +115,31 @@ export default function Dashboard({ user }: DashboardProps) {
           <div className={styles.tagContainer}>
             <label className={styles.tag}>PUBLIC</label>
 
-            <button type="button" className={styles.shareButton}>
+            <button
+              type="button"
+              className={styles.shareButton}
+              onClick={() => handleShare(task.id)}
+            >
               <FiShare2 size={22} color="var(--blue)" />
             </button>
           </div>
         )}
 
         <div className={styles.taskContent}>
-          <p>{task.task}</p>
+          {task.public ? (
+            <Link href={`/task/${task.id}`}>
+              <p>{task.task}</p>
+            </Link>
+          ) : (
+            <p>{task.task}</p>
+          )}
 
           <button type="button" className={styles.trashButton}>
-            <FaTrash size={24} color="var(--red)" />
+            <FaTrash
+              size={24}
+              color="var(--red)"
+              onClick={() => handleDeleteTask(task.id)}
+            />
           </button>
         </div>
       </article>
