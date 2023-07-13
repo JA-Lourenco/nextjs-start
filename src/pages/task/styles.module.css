@@ -1,0 +1,64 @@
+.container {
+  width: 100%;
+  max-width: 1024px;
+
+  margin: 40px auto 0;
+  padding: 0 18px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 100%;
+}
+
+.main h1 {
+  margin-bottom: 14px;
+}
+
+.main article {
+  padding: 14px;
+
+  border: 1.5px solid var(--gray);
+  border-radius: 5px;
+
+  line-height: 150%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task p {
+  width: 100%;
+  white-space: pre-wrap;
+  text-align: justify;
+}
+
+.commentsContainer {
+  width: 100%;
+  max-width: 1024px;
+
+  margin: 18px 0;
+}
+
+.commentsContainer h2 {
+  margin: 14px 0;
+}
+
+.commentsContainer button {
+  width: 100%;
+
+  padding: 12px 0;
+
+  font-size: 18px;
+
+  color: var(--white);
+  background-color: var(--blue);
+
+  border: 0;
+  border-radius: 5px;
+}
