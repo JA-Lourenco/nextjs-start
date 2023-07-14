@@ -67,3 +67,39 @@
   cursor: not-allowed;
   opacity: 0.6;
 }
+
+.comment {
+  width: 100%;
+  max-width: 1024px;
+
+  margin-bottom: 14px;
+  padding: 14px;
+
+  border: 1.5px solid var(--gray);
+  border-radius: 5px;
+}
+
+.headComment {
+  display: flex;
+  align-items: center;
+}
+
+.commentLabel {
+  margin-right: 8px;
+  padding: 4px 8px;
+
+  color: var(--black);
+  background-color: var(--lightGray);
+
+  border-radius: 5px;
+}
+
+.trashButton {
+  border: 0;
+  background-color: transparent;
+}
+
+.comment p {
+  margin-top: 14px;
+  white-space: pre-wrap;
+}
